@@ -1,0 +1,12 @@
+@import "bootstrap";
+
+$danger: #d01612;
+
+.field_with_errors {
+  label {
+    color: $danger;
+  }
+  input, textarea {
+    border-color: $danger;
+  }
+}
