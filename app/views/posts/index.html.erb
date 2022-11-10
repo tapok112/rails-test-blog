@@ -14,4 +14,22 @@
 			</div>
 		</div>
 	<% end %>
+
+	<nav aria-label="Page navigation example">
+  	<ul class="pagination">
+  	  <li class="page-item">
+				<%= link_to "Вперед", posts_path(page: @page + 1), class: "page-link" %>
+			</li>
+
+			<% @page_qty.times do |i| %>
+				<li class="<%= (i == @page) ? "page-item active" : "page-item" %>">
+					<%= link_to "#{i+1}", posts_path(page: i), class: "page-link" %>
+				</li>
+			<% end %>
+
+  	  <li class="page-item">
+				<%= link_to "Назад", posts_path(page: @page - 1), class: "page-link" %>
+			</li>
+  	</ul>
+	</nav>
 </html>

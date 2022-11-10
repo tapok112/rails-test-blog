@@ -26,6 +26,21 @@
                 <a class="nav-link" href="#">О нас</a>
               </li>
             </ul>
+            
+            <ul class="navbar-nav pull-xs-right mb-2 mb-lg-0">
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to "Выход", destroy_user_session_path, method: :delete, class: "nav-link" %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to "Вход", new_user_session_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Регистрация", new_user_registration_path, class: "nav-link" %>
+                </li>
+              <% end %>
+            </ul>
           </div>
         </div>
       </nav>
@@ -36,7 +51,7 @@
         <div class="row">
           <div class="col-md-12">
             <% flash.each do |name, message| %>
-              <div class="alert alert-<%= name %>">
+              <div class="alert <%= bootstrap_class_for(name) %>">
                 <%= message %>
               </div>
             <% end %>
