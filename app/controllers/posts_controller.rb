@@ -1,8 +1,12 @@
 class PostsController < ApplicationController
+	before_action :authenticate_user!, except: [:index, :show]
+	POSTS_PER_PAGE = 15
 	before_action :find_post, only: [ :show, :edit, :update, :destroy ]
 
 	def index
-		@posts = Post.all
+		@page = params.fetch(:page, 0).to_i
+		@page_qty = (Post.all.size % POSTS_PER_PAGE).ceil
+		@posts = Post.offset(@page * POSTS_PER_PAGE).limit(POSTS_PER_PAGE)
 	end
 
 	def show

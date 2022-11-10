@@ -15,5 +15,14 @@
 
       <p class="mt-2"><%= @post.body %></p>
     </div>
+
+    <% if @post.comments.size != 0 %>
+      <h2>Комментарии</h2>
+      <%= render @post.comments %>
+    <% end %>
+      
+
+    <h2>Добавить комментарий:</h2>
+      <%= render 'comments/form' %>
   </div>
 </html>
