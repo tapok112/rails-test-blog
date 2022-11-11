@@ -6,8 +6,10 @@
     <div>
       <small><%= @post.created_at.to_date.strftime("%d %B, %Y") %></small></br>
 
-      <%= link_to 'Изменить', edit_post_path(@post) %> | 
-      <%= link_to 'Удалить', post_path(@post), method: :delete, data: { confirm: 'Удалить пост?' } %>
+      <% if current_user.present? && @post.user_id == current_user.id %>
+        <%= link_to 'Изменить', edit_post_path(@post) %> | 
+        <%= link_to 'Удалить', post_path(@post), method: :delete, data: { confirm: 'Удалить пост?' } %>
+      <% end %>
     </div>
 
     <div>
@@ -21,8 +23,11 @@
       <%= render @post.comments %>
     <% end %>
       
-
-    <h2>Добавить комментарий:</h2>
+    <% if current_user.present? %>
+      <h2>Добавить комментарий:</h2>
       <%= render 'comments/form' %>
+    <% else%>
+      <h3>Чтобы оставить комментарий необходимо авторизоваться</h3>
+    <% end %>
   </div>
 </html>
