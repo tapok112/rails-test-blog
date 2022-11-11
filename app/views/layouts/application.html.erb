@@ -20,9 +20,6 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="<%= new_post_path %>">Создать новый пост</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="#">О нас</a>
               </li>
             </ul>
@@ -30,7 +27,13 @@
             <ul class="navbar-nav pull-xs-right mb-2 mb-lg-0">
               <% if user_signed_in? %>
                 <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="<%= new_post_path %>">Создать новый пост</a>
+                </li>
+                <li class="nav-item">
                   <%= link_to "Выход", destroy_user_session_path, method: :delete, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "#{ current_user.email }", edit_user_registration_path, class: "nav-link" %>
                 </li>
               <% else %>
                 <li class="nav-item">

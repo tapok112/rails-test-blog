@@ -2,11 +2,13 @@
 <html>
   <div class="container">
     <div class="border border-primary rounded my-3 p-2">
-      <p><strong><%= comment.user %></strong> написал:</p>
+      <p><strong><%= comment.user.email %></strong> написал:</p>
       <p><%= comment.body %></p>
       <small><%= comment.created_at.strftime("%d %B %Y, %H:%M") %></small>
-      | 
-      <%= link_to 'Удалить', [comment.post, comment], method: :delete, data: { confirm: 'Удалить комментарий?' } %>
+       <% if current_user.present? && comment.user_id == current_user.id %>
+        | 
+        <%= link_to 'Удалить', [comment.post, comment], method: :delete, data: { confirm: 'Удалить комментарий?' } %>
+      <% end %>
     </div>
   </div>
 </html>
