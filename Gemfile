@@ -47,6 +47,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 4.1'
+  gem 'rspec-rails'
 end
 
 group :test do
@@ -66,3 +67,6 @@ gem 'jquery-rails'
 gem 'devise'
 
 gem 'activeadmin'
+gem 'arctic_admin'
+
+gem 'rails-controller-testing'
