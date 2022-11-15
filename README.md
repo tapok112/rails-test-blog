@@ -1,24 +1,74 @@
-# README
+Тестовый блог на Rails.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+В блоге реализовыны:
+*Главная страница со всеми постами(доступна всем пользователям)
 
-Things you may want to cover:
+*Страница поста с возможностью изменения и удаления только пользователем, который его создал
 
-* Ruby version
+*Комментарии к постам, которые может добавлять только авторизованный пользователь. А удалять, только пользователь- который создал.
 
-* System dependencies
+*Хэдер со ссылками на главную страницу, создание постов, вход, выход и регистрацию.
 
-* Configuration
+Используемые дополнительные гемы: bootstrap, devise, activeadmin(тема Arctic Admin), rspec-rails, factory_bot_rails, faker.
 
-* Database creation
+Авторизация, регистрация и аутентификация были сделаны с помощью гема devise.
 
-* Database initialization
+Картинки для постов сохраняются с помощью стандартного функционала Active Storage.
 
-* How to run the test suite
+Тесты делались с помощью rspec и доп.гемов rails-controller-testing(для проверки экшенов контроллеров зависимых от пользователя), factory_bot_rails(для создания экземпляров классов)
 
-* Services (job queues, cache servers, search engines, etc.)
+Панель администратора делалась с помощью Active Admin, вход возможен только пользователям с атрибутом admin: true, отдельную базу не создавал. Вход осуществляется в пользовательском интерфейсе, затем в адресную строку после порта добавляется "/admin". Для пользователей без прав администратора- вход невозможен. Админ сразу есть в сидах, нет необходимости добавлять через консоль.
 
-* Deployment instructions
+Дополнительно была реализована валидация при изменении и создании поста, которая не дает создавать посты с одинаковым заголовком.
 
-* ...
+Для запуска сервера, после клонирования репозитория, необходимо запустить терминал из корневой папки проекта. Затем набрать следующий команды:
+
+docker compose build
+_________________________
+Если ругается на права:
+sudo chown -R $USER:$USER
+_________________________
+
+Добавить конфигурацию базы данных, заменив содержимое файла config/database.yml на:
+_____________________________
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password: password
+  pool: 5
+
+development:
+  <<: *default
+  database: myapp_development
+
+test:
+  <<: *default
+  database: myapp_test
+______________________________
+
+Запускаем контейнер:
+docker compose up
+
+Заходим в терминал контейнера:
+docker exec -it rails-test-blog-master-web-1 bash
+
+После этого создаем базу данных:
+rails db:create
+
+Делаем миграции и сиды:
+rails db:migrate
+rails db:seed
+
+Переходим в браузер:
+localhost:3000
+
+Готово !!!
+
+Админ:
+admin@example.com
+password
+
+
+
