@@ -48,6 +48,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 4.1'
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
+  gem "factory_bot_rails"
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
 end
 
 group :test do
@@ -69,4 +72,3 @@ gem 'devise'
 gem 'activeadmin'
 gem 'arctic_admin'
 
-gem 'rails-controller-testing'
