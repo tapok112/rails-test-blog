@@ -6,7 +6,7 @@
 		<% if current_user.present? && current_user.posts.size > 0 %>
 			<span class="btn-group m-2" role="group" aria-label="Basic example">
 				<%= link_to "Все", posts_path, class: "btn btn-primary" %>
-				<%= link_to "Мои", user_posts_path, class: "btn btn-primary" %>
+				<%= link_to "Мои", posts_path(:user => current_user), class: "btn btn-primary" %>
 			</span>
 		<% end %>
 	</div>
@@ -25,27 +25,5 @@
 		</div>
 	<% end %>
 
-	<% if @pages_count > 1 %>
-		<nav aria-label="Page navigation example">
-  		<ul class="pagination">
-				<% if @page > 1 %>
-  		  	<li class="page-item">
-						<%= link_to "Назад", current_page?(user_posts_path) ? user_posts_path(page: @page - 1) : posts_path(page: @page - 1), class: "page-link" %>
-					</li>
-				<% end %>
-
-				<% @pages_count.times do |i| %>
-					<li class="<%= (i+1 == @page) ? "page-item active" : "page-item" %>">
-						<%= link_to "#{i+1}", current_page?(user_posts_path) ? user_posts_path(page: i+1) : posts_path(page: i+1), class: "page-link" %>
-					</li>
-				<% end %>
-
-				<% if @page < @pages_count %>
-  		  	<li class="page-item">
-						<%= link_to "Вперед", current_page?(user_posts_path) ? user_posts_path(page: @page + 1) : posts_path(page: @page + 1), class: "page-link" %>
-					</li>
-				<% end %>
-  		</ul>
-		</nav>
-	<% end %>
+	<%= paginate @posts %>
 </html>

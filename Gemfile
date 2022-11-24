@@ -72,3 +72,7 @@ gem 'devise'
 gem 'activeadmin'
 gem 'arctic_admin'
 
+gem 'kaminari'
+
+gem 'rubocop', require: false
+

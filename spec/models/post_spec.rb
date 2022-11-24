@@ -20,6 +20,11 @@ RSpec.describe Post do
     expect(subject).to_not be_valid
   end
 
+  it "validate without unique title" do
+    Post.create!(:title => "post_title", :body => "post_body")
+    expect(subject).to_not be_valid
+  end
+
   it "returns post body" do
     expect(subject.body).to eq("post_body")
   end
