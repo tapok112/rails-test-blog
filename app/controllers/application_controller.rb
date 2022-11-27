@@ -7,11 +7,13 @@ class ApplicationController < ActionController::Base
   
   # Проверка пользователя на наличие прав администратора при переходе в админку
   def authenticate_admin_user!
+
     raise SecurityError unless current_user.try(:admin?)
   end
   
   # В случае если пользователь не админ - редирект на главную
   rescue_from SecurityError do |exception|
+
     redirect_to root_url
   end
 

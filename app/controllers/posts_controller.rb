@@ -25,38 +25,50 @@ class PostsController < ApplicationController
 		@post.user_id = current_user.id
 
 		if @post.save
+
 			redirect_to @post, success: 'Пост создан'
 		else
 			flash.now[:danger] = 'Пост не создан'
+
 			render :new
 		end
+
 	end
 	
 	# Создание шаблона изменения поста для формы
 	def edit
-		unless @post.user_id == current_user.id
-    	redirect_to post_path(@post), danger: 'Невозможно изменить'
-		end
+
+		return if @post.user_id != current_user.id
+
+    redirect_to post_path(@post), danger: 'Невозможно изменить'
+
 	end
 
 	# Изменение поста
-	def update		
+	def update
+	
 		if @post.user_id == current_user.id && @post.update(post_params)
 			redirect_to @post, success: 'Пост обновлен'
 		else
 			flash.now[:danger] = 'Пост не обновлен'
+
 			render :edit
 		end
+
 	end
 
 	# Удаление поста
 	def destroy
+
 		if @post.user_id == current_user.id
 			@post.destroy
+
 			redirect_to posts_path, success: 'Пост удален'
 		else
+
 			redirect_to posts_path, danger: 'Пост не удален'
 		end
+
 	end
 
 	private

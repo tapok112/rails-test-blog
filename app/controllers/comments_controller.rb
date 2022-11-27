@@ -9,22 +9,30 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.create(comment_params)
     @comment.assign_attributes(user_id: current_user.id)
+
     if @comment.save
+
       redirect_to post_path(@post), success: 'Комментарий прикреплен'
     else
+
       redirect_to post_path(@post), danger: 'Комментарий не прикреплен'
-    end      
+    end
+   
   end
 
   # Удаление комментария
   def destroy
     @comment = @post.comments.find(params[:id])
+
     if @comment.user_id == current_user.id
       @comment.destroy
+
       redirect_to post_path(@post), success: 'Комментарий удален'
     else
+
       redirect_to post_path(@post), danger: 'Комментарий не удален'
     end
+
   end
 
   private
