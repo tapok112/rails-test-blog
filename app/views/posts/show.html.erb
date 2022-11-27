@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <%= image_tag @post.post_image, class: "w-50" if @post.post_image.attached? %>
+      <%= image_tag @post.image, class: "w-50" if @post.image.attached? %>
 
       <p class="mt-2"><%= @post.body %></p>
     </div>

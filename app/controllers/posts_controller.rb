@@ -1,32 +1,30 @@
+# Контроллер постов
 class PostsController < ApplicationController
-	before_action :authenticate_user!, except: [:index, :show]
-	POSTS_PER_PAGE = 15
-	before_action :find_post, only: [ :show, :edit, :update, :destroy ]
-	before_action :page_num, only: [ :user_posts_list, :index ]
+	# Фильтр требующий авторизацию перед запуском всех экшенов, кроме index и show
+	before_action :authenticate_user!, except: %i[index show]
+	 # Фильтр поиска поста перед запуском экшенов show, edit, update и destroy
+	before_action :find_post, only: %i[show edit update destroy]
 
+	# Список постов
 	def index
-		@pages_count = (Post.count(:all).to_f / POSTS_PER_PAGE).ceil
-		@posts = Post.offset((@page-1) * POSTS_PER_PAGE).limit(POSTS_PER_PAGE)
+		@posts = Post.by_user(params[:user_id]).page params[:page]
 	end
 
-	def user_posts_list
-		@pages_count = (current_user.posts.size.to_f / POSTS_PER_PAGE).ceil
-		@posts = current_user.posts.offset((@page-1) * POSTS_PER_PAGE).limit(POSTS_PER_PAGE)
-		render :index
-	end
-
+	# Получение данных поста
 	def show
 	end
 
+	# Создание шаблона поста для формы
 	def new
 		@post = Post.new
 	end
 
+	# Создание поста
 	def create
 		@post = Post.new(post_params)
 		@post.user_id = current_user.id
 
-		if title_check && @post.save
+		if @post.save
 			redirect_to @post, success: 'Пост создан'
 		else
 			flash.now[:danger] = 'Пост не создан'
@@ -34,14 +32,16 @@ class PostsController < ApplicationController
 		end
 	end
 	
+	# Создание шаблона изменения поста для формы
 	def edit
 		unless @post.user_id == current_user.id
     	redirect_to post_path(@post), danger: 'Невозможно изменить'
 		end
 	end
 
+	# Изменение поста
 	def update		
-		if (title_check || post_params.value?(@post.title)) && @post.update(post_params) && @post.user_id == current_user.id
+		if @post.user_id == current_user.id && @post.update(post_params)
 			redirect_to @post, success: 'Пост обновлен'
 		else
 			flash.now[:danger] = 'Пост не обновлен'
@@ -49,6 +49,7 @@ class PostsController < ApplicationController
 		end
 	end
 
+	# Удаление поста
 	def destroy
 		if @post.user_id == current_user.id
 			@post.destroy
@@ -60,19 +61,13 @@ class PostsController < ApplicationController
 
 	private
 
-	def page_num
-		@page = params.fetch(:page, 1).to_i
-	end
-
+	# Поиск поста для экшенов контроллера
 	def find_post
 		@post = Post.find(params[:id])
 	end
 
-	def title_check
-		!Post.find_by(title: @post.title)
-	end
-
+	# Параметры для создания и обновления поста
 	def post_params
-		params.require(:post).permit(:title, :body, :post_image)
+		params.require(:post).permit(:title, :body, :image)
 	end
 end
