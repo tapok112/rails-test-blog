@@ -1,4 +1,6 @@
 module ApplicationHelper
+
+  # Классы bootstrap для разных категорий flash-алертов
   def bootstrap_class_for(name)
     {
       success: "alert-success",

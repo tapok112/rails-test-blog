@@ -6,7 +6,7 @@
 		<% if current_user.present? && current_user.posts.size > 0 %>
 			<span class="btn-group m-2" role="group" aria-label="Basic example">
 				<%= link_to "Все", posts_path, class: "btn btn-primary" %>
-				<%= link_to "Мои", posts_path(:user => current_user), class: "btn btn-primary" %>
+				<%= link_to "Мои", posts_path(:user_id => current_user), class: "btn btn-primary" %>
 			</span>
 		<% end %>
 	</div>
