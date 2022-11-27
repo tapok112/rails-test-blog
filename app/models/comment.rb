@@ -1,3 +1,4 @@
+# Модель комментария
 class Comment < ApplicationRecord
   # Тело комментария не может быть пустым
   validates_presence_of :body

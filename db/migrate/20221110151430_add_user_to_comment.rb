@@ -1,3 +1,4 @@
+# Миграция для модели комментария
 class AddUserToComment < ActiveRecord::Migration[7.0]
   # Создание связи таблицы комментариев с таблицей пользователей в БД
   def change

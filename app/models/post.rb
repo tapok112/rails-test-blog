@@ -1,3 +1,4 @@
+# Модель поста
 class Post < ApplicationRecord
   # Тело и заголовок поста не могут быть пустыми
   validates_presence_of :title, :body

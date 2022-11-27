@@ -1,5 +1,8 @@
+# Контроллер комментариев
 class CommentsController < ApplicationController
+  # Фильтр требующий авторизацию перед запуском экшенов
   before_action :authenticate_user!
+  # Фильтр поиска поста перед запуском экшенов create и destroy
   before_action :find_post, only: %i[create destroy]
 
   # Создание комментария

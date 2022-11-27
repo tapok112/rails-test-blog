@@ -1,3 +1,4 @@
+# Модель пользователя
 class User < ApplicationRecord
   # Модули девайс
   devise :database_authenticatable, :registerable,

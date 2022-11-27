@@ -1,5 +1,8 @@
+# Контроллер постов
 class PostsController < ApplicationController
+	# Фильтр требующий авторизацию перед запуском всех экшенов, кроме index и show
 	before_action :authenticate_user!, except: %i[index show]
+	 # Фильтр поиска поста перед запуском экшенов show, edit, update и destroy
 	before_action :find_post, only: %i[show edit update destroy]
 
 	# Список постов

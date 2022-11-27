@@ -1,3 +1,4 @@
+# Миграция для модели поста
 class CreatePosts < ActiveRecord::Migration[7.0]
   # Создание таблицы постов в БД
   def change

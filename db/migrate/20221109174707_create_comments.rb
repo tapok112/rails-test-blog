@@ -1,3 +1,4 @@
+# Миграция для модели комментария
 class CreateComments < ActiveRecord::Migration[7.0]
   # Создание таблицы комментариев в БД
   def change

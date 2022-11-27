@@ -1,3 +1,4 @@
+# Миграция для модели пользователя
 class AddAdminToUser < ActiveRecord::Migration[7.0]
   # Добавление поля admin и name в таблицу пользователей
   def change
