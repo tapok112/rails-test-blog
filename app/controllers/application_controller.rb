@@ -2,7 +2,7 @@
 class ApplicationController < ActionController::Base
   # Фильтр добавления параметров в devise перед запуском экшенов
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
-  # Добавление типов для flash-алетров
+  # Добавление типов для flash-алертов
   add_flash_types :success, :danger
   
   # Проверка пользователя на наличие прав администратора при переходе в админку
